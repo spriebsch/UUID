@@ -1,5 +1,6 @@
 {
   "name": "spriebsch/uuid",
+  "description": "A fast and simple no-frills UUIDv4 implementation.",
   "autoload": {
     "classmap": [
       "src"
