@@ -1,0 +1,35 @@
+{
+  "name": "spriebsch/uuid",
+  "autoload": {
+    "classmap": [
+      "src"
+    ]
+  },
+  "config": {
+    "platform": {
+      "php": "8.3"
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.3"
+  },
+  "scripts": {
+    "post-autoload-dump": "composer generate-autoloader",
+    "generate-autoloader": "tools/phpab --basedir src --output src/autoload.php composer.json",
+    "test": "tools/phpunit",
+    "mutation-test": "tools/infection",
+    "code-coverage": [
+      "@putenv XDEBUG_MODE=coverage",
+      "tools/phpunit --coverage-html build/code-coverage"
+    ],
+    "path-coverage": [
+      "@putenv XDEBUG_MODE=coverage",
+      "tools/phpunit --coverage-html build/code-coverage --path-coverage"
+    ],
+    "show-coverage": "gio open build/code-coverage/index.html",
+    "update-tools": "phive update"
+  }
+}
