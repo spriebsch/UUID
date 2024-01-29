@@ -1,6 +1,15 @@
 {
   "name": "spriebsch/uuid",
   "description": "A fast and simple no-frills UUIDv4 implementation.",
+  "authors": [
+    {
+      "name": "Stefan Priebsch",
+      "email": "stefan@priebsch.de",
+      "homepage": "https://priebsch.de",
+      "role": "Developer"
+    }
+  ],
+  "license": "BSD-3-Clause",
   "autoload": {
     "classmap": [
       "src"
