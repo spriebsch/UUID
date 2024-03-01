@@ -29,13 +29,19 @@
   "scripts": {
     "post-autoload-dump": "composer generate-autoloader",
     "generate-autoloader": "tools/phpab --basedir src --output src/autoload.php composer.json",
+    "clean": "rm -rf build/*",
     "test": "tools/phpunit",
-    "mutation-test": "tools/infection",
+    "mutation-test": [
+      "rm build/infection.log",
+      "tools/infection"
+    ],
     "code-coverage": [
+      "rm -rf build/code-coverage",
       "@putenv XDEBUG_MODE=coverage",
       "tools/phpunit --coverage-html build/code-coverage"
     ],
     "path-coverage": [
+      "rm -rf build/code-coverage",
       "@putenv XDEBUG_MODE=coverage",
       "tools/phpunit --coverage-html build/code-coverage --path-coverage"
     ],
