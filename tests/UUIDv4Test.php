@@ -11,32 +11,28 @@
 
 namespace spriebsch\uuid;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \spriebsch\uuid\UUID
- * @uses   \spriebsch\uuid\UUIDException
- *
- * @group  spriebsch
- * @group  uuid
- */
-class UUIDTest extends TestCase
+#[CoversClass(UUIDv4::class)]
+#[CoversClass(UUIDException::class)]
+class UUIDv4Test extends TestCase
 {
     public function test_can_be_generated(): void
     {
-        $this->assertInstanceOf(UUID::class, UUID::generate());
+        $this->assertInstanceOf(UUIDv4::class, UUIDv4::generate());
     }
 
     public function test_can_be_created_from_string(): void
     {
-        $uuid = UUID::generate()->asString();
+        $uuid = UUIDv4::generate()->asString();
 
-        $this->assertEquals($uuid, UUID::from($uuid)->asString());
+        $this->assertEquals($uuid, UUIDv4::from($uuid)->asString());
     }
 
     public function test_can_be_converted_to_string(): void
     {
-        $this->assertIsString(UUID::generate()->asString());
+        $this->assertIsString(UUIDv4::generate()->asString());
     }
 
     public function test_generated_UUIDs_differ(): void
@@ -44,7 +40,7 @@ class UUIDTest extends TestCase
         $uuids = [];
 
         for ($i = 0; $i < 1000; $i++) {
-            $uuids[] = UUID::generate()->asString();
+            $uuids[] = UUIDv4::generate()->asString();
         }
 
         $this->assertEquals(count($uuids), count(array_unique($uuids)));
@@ -57,7 +53,7 @@ class UUIDTest extends TestCase
     {
         $this->expectException(UUIDException::class);
 
-        UUID::from($uuid);
+        UUIDv4::from($uuid);
     }
 
     public static function provideInvalidUUIDs(): array

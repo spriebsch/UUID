@@ -8,7 +8,8 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'spriebsch\\uuid\\uuid' => '/UUID.php',
-                'spriebsch\\uuid\\uuidexception' => '/UUIDException.php'
+                'spriebsch\\uuid\\uuidexception' => '/UUIDException.php',
+                'spriebsch\\uuid\\uuidv4' => '/UUIDv4.php'
             );
         }
         $cn = strtolower($class);
