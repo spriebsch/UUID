@@ -11,14 +11,10 @@
 
 namespace spriebsch\uuid;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \spriebsch\uuid\UUIDException
- *
- * @group  spriebsch
- * @group  uuid
- */
+#[CoversClass(UUIDException::class)]
 class UUIDExceptionTest extends TestCase
 {
     public function test_malformed_uuid(): void

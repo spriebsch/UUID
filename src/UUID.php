@@ -8,5 +8,7 @@ interface UUID
 
     public static function from(string $uuid): UUID;
 
+    public function equals(UUID $other): bool;
+
     public function asString(): string;
 }

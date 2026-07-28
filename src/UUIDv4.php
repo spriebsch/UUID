@@ -31,11 +31,14 @@ final class UUIDv4 implements UUID
             $uuid = $this->generateUUID();
         }
 
-        assert($uuid !== null);
-
         $this->ensureFormatLooksValid($uuid);
 
         $this->uuid = $uuid;
+    }
+
+    public function equals(UUID $other): bool
+    {
+        return $this->asString() === $other->asString();
     }
 
     public function asString(): string

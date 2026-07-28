@@ -12,6 +12,7 @@
 namespace spriebsch\uuid;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(UUIDv4::class)]
@@ -27,12 +28,14 @@ class UUIDv4Test extends TestCase
     {
         $uuid = UUIDv4::generate()->asString();
 
-        $this->assertEquals($uuid, UUIDv4::from($uuid)->asString());
+        $this->assertSame($uuid, UUIDv4::from($uuid)->asString());
     }
 
     public function test_can_be_converted_to_string(): void
     {
-        $this->assertIsString(UUIDv4::generate()->asString());
+        $uuid = UUIDv4::generate();
+
+        $this->assertSame(36, strlen($uuid->asString()));
     }
 
     public function test_generated_UUIDs_differ(): void
@@ -46,9 +49,7 @@ class UUIDv4Test extends TestCase
         $this->assertEquals(count($uuids), count(array_unique($uuids)));
     }
 
-    /**
-     * @dataProvider provideInvalidUUIDs
-     */
+    #[DataProvider('provideInvalidUUIDs')]
     public function test_exception_on_invalid_format(string $uuid): void
     {
         $this->expectException(UUIDException::class);
@@ -56,6 +57,9 @@ class UUIDv4Test extends TestCase
         UUIDv4::from($uuid);
     }
 
+    /**
+     * @return array<string, array{0: string}>
+     */
     public static function provideInvalidUUIDs(): array
     {
         return [
@@ -66,6 +70,24 @@ class UUIDv4Test extends TestCase
             'no fourth dash'           => ['2b481805-f77e-437f-93a9abe159422da39'],
             'not version 4'            => ['2b481805-f77e-337f-93a9-be159422da39'],
             'non-hex numbers'          => ['xb481805-f77e-437f-93a9-be159422da39'],
+            'invalid variant'          => ['2b481805-f77e-437f-c3a9-be159422da39'],
         ];
+    }
+
+    public function test_equals_returns_true_for_identical_uuids(): void
+    {
+        $uuidString = UUIDv4::generate()->asString();
+        $uuid1 = UUIDv4::from($uuidString);
+        $uuid2 = UUIDv4::from($uuidString);
+
+        $this->assertTrue($uuid1->equals($uuid2));
+    }
+
+    public function test_equals_returns_false_for_different_uuids(): void
+    {
+        $uuid1 = UUIDv4::generate();
+        $uuid2 = UUIDv4::generate();
+
+        $this->assertFalse($uuid1->equals($uuid2));
     }
 }

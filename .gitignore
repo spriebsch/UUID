@@ -1,5 +1,6 @@
 /.ant_targets
 /.idea
+/.junie
 /.php_cs
 /.php_cs.cache
 /.phpunit.cache
